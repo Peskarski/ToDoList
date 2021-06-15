@@ -3,20 +3,25 @@ import { StyledInput, StyledButton } from './styles';
 
 type Props = {
   buttonText: string;
+  addTodo: (toDo: string) => void;
 };
 
-const toDoInput: React.FC<Props> = ({ buttonText }) => {
+const toDoInput: React.FC<Props> = ({ buttonText, addTodo }) => {
   const [toDo, setToDo] = useState<string>('');
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setToDo(e.target.value);
-    console.log(toDo);
+  };
+
+  const handleClick = () => {
+    addTodo(toDo);
+    setToDo('');
   };
 
   return (
     <div>
       <StyledInput disableUnderline onChange={handleChange} value={toDo} />
-      <StyledButton variant="contained" color="secondary">
+      <StyledButton variant="contained" color="secondary" onClick={handleClick}>
         {buttonText}
       </StyledButton>
     </div>
