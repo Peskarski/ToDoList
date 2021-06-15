@@ -1,7 +1,8 @@
 import React from 'react';
+import Container from './components/Container/Container'
 
 const App = () => (
-    <h1>ToDo List</h1>
+    <Container header="ToDoList" />
 )
 
 export default App;

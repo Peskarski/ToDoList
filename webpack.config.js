@@ -31,11 +31,19 @@ module.exports = {
             options:{
               presets:["@babel/preset-env", "@babel/preset-react"]
             }
+          },
+          {
+            test: /\.tsx?$/,
+            exclude: /node_modules/,
+            loader: 'ts-loader'
           }
         ]
-      },
+    },
+    
+    resolve: {
+      extensions: [ '.tsx', '.ts', '.js' ],
+    },
       
-
     plugins: [
         new HtmlWebpackPlugin({
           template: "./src/index.html"
