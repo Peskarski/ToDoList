@@ -3,18 +3,19 @@ import { StyledInput, StyledButton } from './styles';
 
 type Props = {
   buttonText: string;
-  addTodo: (toDo: string) => void;
+  addTodo: ({}) => void;
 };
 
 const toDoInput: React.FC<Props> = ({ buttonText, addTodo }) => {
   const [toDo, setToDo] = useState<string>('');
+  const [date, setDate] = useState<string>(new Date().toLocaleDateString());
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setToDo(e.target.value);
   };
 
-  const handleClick = () => {
-    addTodo(toDo);
+  const handleClick = (): void => {
+    addTodo({ toDo, date });
     setToDo('');
   };
 
