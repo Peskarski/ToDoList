@@ -1,8 +1,6 @@
 import React from 'react';
-import Container from './components/Container/Container'
+import Main from './components/Main/Main';
 
-const App = () => (
-    <Container header="ToDoList" />
-)
+const App = () => <Main header="ToDo List" />;
 
 export default App;
