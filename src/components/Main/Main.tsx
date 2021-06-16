@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { StyledContainer } from './styles';
 import { ToDoInput, ToDoList } from '../../index';
+import { sortToDos } from './utils';
 
 type Props = {
   header: string;
@@ -27,7 +28,7 @@ const Main: React.FC<Props> = ({ header }) => {
     <StyledContainer>
       <h1>{header}</h1>
       <ToDoInput buttonText="Add TODO" addTodo={addTodo} />
-      <ToDoList toDos={toDos} deleteTodo={deleteTodo} />
+      <ToDoList toDos={sortToDos(toDos)} deleteTodo={deleteTodo} />
     </StyledContainer>
   );
 };
