@@ -11,15 +11,17 @@ const toDoInput: React.FC<Props> = ({ buttonText, addTodo }) => {
 
   const [toDo, setToDo] = useState<string>('');
   const [date, setDate] = useState<string>(getDate());
+  const [id, setId] = useState<string>(String(Math.random()));
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setToDo(e.target.value);
   };
 
   const handleClick = (): void => {
-    addTodo({ toDo, date });
+    addTodo({ toDo, date, id });
     setToDo('');
     setDate(getDate());
+    setId(String(Math.random()));
   };
 
   return (

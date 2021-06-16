@@ -8,17 +8,21 @@ type Props = {
 };
 
 const Main: React.FC<Props> = ({ header }) => {
-  const [toDos, setToDos] = useState<{ toDo: string; date: string }[]>([]);
+  const [toDos, setToDos] = useState<{ toDo: string; date: string; id: string }[]>([]);
 
-  const addTodo = (obj: { toDo: string; date: string }) => {
+  const addTodo = (obj: { toDo: string; date: string; id: string }) => {
     setToDos((prevState) => [...prevState, obj]);
+  };
+
+  const deleteTodo = (id: string) => {
+    setToDos((prevState) => prevState.filter((item) => item.id !== id));
   };
 
   return (
     <StyledContainer>
       <h1>{header}</h1>
       <ToDoInput buttonText="Add TODO" addTodo={addTodo} />
-      <ToDoList toDos={toDos} />
+      <ToDoList toDos={toDos} deleteTodo={deleteTodo} />
     </StyledContainer>
   );
 };
