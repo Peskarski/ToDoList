@@ -7,8 +7,10 @@ type Props = {
 };
 
 const toDoInput: React.FC<Props> = ({ buttonText, addTodo }) => {
+  const getDate = (): string => new Date().toLocaleString('ru');
+
   const [toDo, setToDo] = useState<string>('');
-  const [date, setDate] = useState<string>(new Date().toLocaleDateString());
+  const [date, setDate] = useState<string>(getDate());
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setToDo(e.target.value);
@@ -17,6 +19,7 @@ const toDoInput: React.FC<Props> = ({ buttonText, addTodo }) => {
   const handleClick = (): void => {
     addTodo({ toDo, date });
     setToDo('');
+    setDate(getDate());
   };
 
   return (
