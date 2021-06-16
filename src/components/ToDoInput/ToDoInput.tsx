@@ -1,27 +1,26 @@
 import React, { useState } from 'react';
 import { StyledInput, StyledButton } from './styles';
+import { getDate } from './utils';
 
-type Props = {
+interface Props {
   buttonText: string;
   addTodo: ({}) => void;
-};
+}
+
+const DEFAULT_INPUT_VALUE = '';
 
 const toDoInput: React.FC<Props> = ({ buttonText, addTodo }) => {
-  const getDate = (): string => new Date().toLocaleString('ru');
-
-  const [toDo, setToDo] = useState<string>('');
-  const [date, setDate] = useState<string>(getDate());
-  const [id, setId] = useState<string>(String(Math.random()));
+  const [toDo, setToDo] = useState<string>(DEFAULT_INPUT_VALUE);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setToDo(e.target.value);
   };
 
   const handleClick = (): void => {
+    const date = getDate();
+    const id = String(Math.random());
     addTodo({ toDo, date, id });
-    setToDo('');
-    setDate(getDate());
-    setId(String(Math.random()));
+    setToDo(DEFAULT_INPUT_VALUE);
   };
 
   return (

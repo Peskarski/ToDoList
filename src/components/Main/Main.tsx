@@ -1,17 +1,22 @@
 import React, { useState } from 'react';
 import { StyledContainer } from './styles';
-import ToDoInput from '../ToDoInput/ToDoInput';
-import ToDoList from '../ToDoList/ToDoList';
+import { ToDoInput, ToDoList } from '../../index';
 
 type Props = {
   header: string;
 };
 
-const Main: React.FC<Props> = ({ header }) => {
-  const [toDos, setToDos] = useState<{ toDo: string; date: string; id: string }[]>([]);
+export type ToDo = {
+  toDo: string;
+  date: string;
+  id: string;
+};
 
-  const addTodo = (obj: { toDo: string; date: string; id: string }) => {
-    setToDos((prevState) => [...prevState, obj]);
+const Main: React.FC<Props> = ({ header }) => {
+  const [toDos, setToDos] = useState<ToDo[]>([]);
+
+  const addTodo = (toDo: ToDo) => {
+    setToDos((prevState) => [...prevState, toDo]);
   };
 
   const deleteTodo = (id: string) => {
