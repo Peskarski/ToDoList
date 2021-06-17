@@ -29828,6 +29828,7 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "DEFAULT_INPUT_VALUE": () => (/* binding */ DEFAULT_INPUT_VALUE),
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(1);
@@ -29843,19 +29844,24 @@ var __spreadArray = (undefined && undefined.__spreadArray) || function (to, from
 
 
 
+var DEFAULT_INPUT_VALUE = '';
 var Main = function (_a) {
     var header = _a.header;
     var _b = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]), toDos = _b[0], setToDos = _b[1];
+    var _c = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(DEFAULT_INPUT_VALUE), editedToDo = _c[0], setEditedToDo = _c[1];
     var addTodo = function (toDo) {
         setToDos(function (prevState) { return __spreadArray(__spreadArray([], prevState), [toDo]); });
     };
     var deleteTodo = function (id) {
         setToDos(function (prevState) { return prevState.filter(function (item) { return item.id !== id; }); });
     };
+    var editTodo = function (toDo) {
+        setEditedToDo(toDo);
+    };
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(_styles__WEBPACK_IMPORTED_MODULE_1__.StyledContainer, null,
         react__WEBPACK_IMPORTED_MODULE_0__.createElement("h1", null, header),
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(_index__WEBPACK_IMPORTED_MODULE_2__.ToDoInput, { buttonText: "Add TODO", addTodo: addTodo }),
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(_index__WEBPACK_IMPORTED_MODULE_2__.ToDoList, { toDos: (0,_utils__WEBPACK_IMPORTED_MODULE_3__.sortToDos)(toDos), deleteTodo: deleteTodo })));
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(_index__WEBPACK_IMPORTED_MODULE_2__.ToDoInput, { buttonText: "Add TODO", addTodo: addTodo, editedToDo: editedToDo }),
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(_index__WEBPACK_IMPORTED_MODULE_2__.ToDoList, { toDos: (0,_utils__WEBPACK_IMPORTED_MODULE_3__.sortToDos)(toDos), deleteTodo: deleteTodo, editTodo: editTodo })));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Main);
 
@@ -38903,13 +38909,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(1);
 /* harmony import */ var _styles__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(107);
 /* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(128);
+/* harmony import */ var _Main_Main__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(12);
 
 
 
-var DEFAULT_INPUT_VALUE = '';
+
 var toDoInput = function (_a) {
-    var buttonText = _a.buttonText, addTodo = _a.addTodo;
-    var _b = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(DEFAULT_INPUT_VALUE), toDo = _b[0], setToDo = _b[1];
+    var buttonText = _a.buttonText, addTodo = _a.addTodo, editedToDo = _a.editedToDo;
+    var _b = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(editedToDo), toDo = _b[0], setToDo = _b[1];
+    (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+        setToDo(editedToDo);
+    }, [editedToDo]);
     var handleChange = function (e) {
         setToDo(e.target.value);
     };
@@ -38917,7 +38927,7 @@ var toDoInput = function (_a) {
         var date = (0,_utils__WEBPACK_IMPORTED_MODULE_2__.getDate)();
         var id = String(Math.random());
         addTodo({ toDo: toDo, date: date, id: id });
-        setToDo(DEFAULT_INPUT_VALUE);
+        setToDo(_Main_Main__WEBPACK_IMPORTED_MODULE_3__.DEFAULT_INPUT_VALUE);
     };
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null,
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(_styles__WEBPACK_IMPORTED_MODULE_1__.StyledInput, { disableUnderline: true, onChange: handleChange, value: toDo }),
@@ -42448,18 +42458,19 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var ToDoList = function (_a) {
-    var toDos = _a.toDos, deleteTodo = _a.deleteTodo;
-    var handleDeleteClick = function (e) {
-        deleteTodo(e.currentTarget.closest('div').id);
+    var toDos = _a.toDos, deleteTodo = _a.deleteTodo, editTodo = _a.editTodo;
+    var handleEditClick = function (toDo, id) {
+        editTodo(toDo);
+        deleteTodo(id);
     };
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_1__.default, null, toDos.map(function (_a) {
         var toDo = _a.toDo, date = _a.date, id = _a.id;
         return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_2__.default, { key: id, divider: true },
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_3__.default, { primary: toDo, secondary: date }),
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_4__.default, { id: id },
-                react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_5__.default, null,
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_4__.default, null,
+                react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_5__.default, { onClick: function () { return handleEditClick(toDo, id); } },
                     react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_icons_Edit__WEBPACK_IMPORTED_MODULE_6__.default, null)),
-                react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_5__.default, { onClick: handleDeleteClick },
+                react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_5__.default, { onClick: function () { return deleteTodo(id); } },
                     react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_icons_Delete__WEBPACK_IMPORTED_MODULE_7__.default, { color: "secondary" })))));
     })));
 };
