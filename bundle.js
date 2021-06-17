@@ -29847,8 +29847,11 @@ var __spreadArray = (undefined && undefined.__spreadArray) || function (to, from
 var DEFAULT_INPUT_VALUE = '';
 var Main = function (_a) {
     var header = _a.header;
-    var _b = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]), toDos = _b[0], setToDos = _b[1];
+    var _b = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)((0,_utils__WEBPACK_IMPORTED_MODULE_3__.getToDosFromLS)() || []), toDos = _b[0], setToDos = _b[1];
     var _c = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(DEFAULT_INPUT_VALUE), editedToDo = _c[0], setEditedToDo = _c[1];
+    (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+        (0,_utils__WEBPACK_IMPORTED_MODULE_3__.setToDosToLS)(toDos);
+    }, [toDos]);
     var addTodo = function (toDo) {
         setToDos(function (prevState) { return __spreadArray(__spreadArray([], prevState), [toDo]); });
     };
@@ -38890,11 +38893,18 @@ function getThemeProps(params) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "sortToDos": () => (/* binding */ sortToDos)
+/* harmony export */   "sortToDos": () => (/* binding */ sortToDos),
+/* harmony export */   "setToDosToLS": () => (/* binding */ setToDosToLS),
+/* harmony export */   "getToDosFromLS": () => (/* binding */ getToDosFromLS)
 /* harmony export */ });
+var LS_ITEM_NAME = 'toDos';
 var sortToDos = function (toDos) {
     return toDos.sort(function (prev, curr) { return Date.parse(curr.date) - Date.parse(prev.date); });
 };
+var setToDosToLS = function (toDos) {
+    localStorage.setItem(LS_ITEM_NAME, JSON.stringify(toDos));
+};
+var getToDosFromLS = function () { return JSON.parse(localStorage.getItem(LS_ITEM_NAME)); };
 
 
 /***/ }),
