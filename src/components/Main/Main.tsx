@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { StyledContainer } from './styles';
-import { ToDoInput, ToDoList } from '../../index';
+import { ToDoInput } from '../ToDoInput';
+import { ToDoList } from '../ToDoList';
 import { sortToDos, getToDosFromLS, setToDosToLS } from './utils';
 
 type Props = {
