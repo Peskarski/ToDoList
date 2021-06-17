@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { StyledContainer } from './styles';
 import { ToDoInput, ToDoList } from '../../index';
-import { sortToDos } from './utils';
+import { sortToDos, getToDosFromLS, setToDosToLS } from './utils';
 
 type Props = {
   header: string;
@@ -16,8 +16,12 @@ export type ToDo = {
 export const DEFAULT_INPUT_VALUE = '';
 
 const Main: React.FC<Props> = ({ header }) => {
-  const [toDos, setToDos] = useState<ToDo[]>([]);
+  const [toDos, setToDos] = useState<ToDo[]>(getToDosFromLS() || []);
   const [editedToDo, setEditedToDo] = useState<string>(DEFAULT_INPUT_VALUE);
+
+  useEffect(() => {
+    setToDosToLS(toDos);
+  }, [toDos]);
 
   const addTodo = (toDo: ToDo) => {
     setToDos((prevState) => [...prevState, toDo]);
