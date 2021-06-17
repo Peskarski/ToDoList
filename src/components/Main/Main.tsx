@@ -13,8 +13,11 @@ export type ToDo = {
   id: string;
 };
 
+export const DEFAULT_INPUT_VALUE = '';
+
 const Main: React.FC<Props> = ({ header }) => {
   const [toDos, setToDos] = useState<ToDo[]>([]);
+  const [editedToDo, setEditedToDo] = useState<string>(DEFAULT_INPUT_VALUE);
 
   const addTodo = (toDo: ToDo) => {
     setToDos((prevState) => [...prevState, toDo]);
@@ -24,11 +27,15 @@ const Main: React.FC<Props> = ({ header }) => {
     setToDos((prevState) => prevState.filter((item) => item.id !== id));
   };
 
+  const editTodo = (toDo: string) => {
+    setEditedToDo(toDo);
+  };
+
   return (
     <StyledContainer>
       <h1>{header}</h1>
-      <ToDoInput buttonText="Add TODO" addTodo={addTodo} />
-      <ToDoList toDos={sortToDos(toDos)} deleteTodo={deleteTodo} />
+      <ToDoInput buttonText="Add TODO" addTodo={addTodo} editedToDo={editedToDo} />
+      <ToDoList toDos={sortToDos(toDos)} deleteTodo={deleteTodo} editTodo={editTodo} />
     </StyledContainer>
   );
 };

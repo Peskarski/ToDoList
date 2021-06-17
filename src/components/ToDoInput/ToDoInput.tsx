@@ -1,16 +1,20 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { StyledInput, StyledButton } from './styles';
 import { getDate } from './utils';
+import { DEFAULT_INPUT_VALUE } from '../Main/Main';
 
 interface Props {
   buttonText: string;
   addTodo: ({}) => void;
+  editedToDo: string;
 }
 
-const DEFAULT_INPUT_VALUE = '';
+const toDoInput: React.FC<Props> = ({ buttonText, addTodo, editedToDo }) => {
+  const [toDo, setToDo] = useState<string>(editedToDo);
 
-const toDoInput: React.FC<Props> = ({ buttonText, addTodo }) => {
-  const [toDo, setToDo] = useState<string>(DEFAULT_INPUT_VALUE);
+  useEffect(() => {
+    setToDo(editedToDo);
+  }, [editedToDo]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setToDo(e.target.value);
