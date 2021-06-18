@@ -1,5 +1,5 @@
 import React from 'react';
-import { Main } from './index';
+import { Main } from './components/Main';
 
 type Props = {};
 
