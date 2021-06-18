@@ -38930,7 +38930,7 @@ var toDoInput = function (_a) {
         setToDo(_Main__WEBPACK_IMPORTED_MODULE_3__.DEFAULT_INPUT_VALUE);
     };
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null,
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(_styles__WEBPACK_IMPORTED_MODULE_1__.StyledInput, { disableUnderline: true, onChange: handleChange, value: toDo }),
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(_styles__WEBPACK_IMPORTED_MODULE_1__.StyledInput, { disableUnderline: true, onChange: handleChange, value: toDo, "data-testid": "input" }),
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(_styles__WEBPACK_IMPORTED_MODULE_1__.StyledButton, { variant: "contained", color: "secondary", onClick: handleClick }, buttonText)));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (toDoInput);

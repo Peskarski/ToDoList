@@ -7,6 +7,9 @@
     "jsx": "react",
     "allowJs": true,
     "moduleResolution": "Node",
-    "allowSyntheticDefaultImports": true
-  }
+    "allowSyntheticDefaultImports": true,
+    "lib": ["dom", "esnext"],
+    "esModuleInterop": true
+  },
+  "exclude": ["node_modules"]
 }
