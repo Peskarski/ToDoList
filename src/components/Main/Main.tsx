@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { StyledContainer } from './styles';
 import { ToDoInput } from '../ToDoInput';
 import { ToDoList } from '../ToDoList';
-import { sortToDos, getToDosFromLS, setToDosToLS } from './utils';
+import { sortToDos, getToDosFromLocalStorage, setToDosToLocalStorage } from './utils';
 
 type Props = {
   header: string;
@@ -17,11 +17,11 @@ export type ToDo = {
 export const DEFAULT_INPUT_VALUE = '';
 
 const Main: React.FC<Props> = ({ header }) => {
-  const [toDos, setToDos] = useState<ToDo[]>(getToDosFromLS() || []);
+  const [toDos, setToDos] = useState<ToDo[]>(getToDosFromLocalStorage() || []);
   const [editedToDo, setEditedToDo] = useState<string>(DEFAULT_INPUT_VALUE);
 
   useEffect(() => {
-    setToDosToLS(toDos);
+    setToDosToLocalStorage(toDos);
   }, [toDos]);
 
   const addTodo = (toDo: ToDo) => {
