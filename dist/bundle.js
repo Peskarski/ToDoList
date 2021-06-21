@@ -38931,7 +38931,7 @@ var toDoInput = function (_a) {
     };
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null,
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(_styles__WEBPACK_IMPORTED_MODULE_1__.StyledInput, { disableUnderline: true, onChange: handleChange, value: toDo, "data-testid": "input" }),
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(_styles__WEBPACK_IMPORTED_MODULE_1__.StyledButton, { variant: "contained", color: "secondary", onClick: handleClick }, buttonText)));
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(_styles__WEBPACK_IMPORTED_MODULE_1__.StyledButton, { variant: "contained", color: "secondary", onClick: handleClick, "data-testid": "add" }, buttonText)));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (toDoInput);
 
@@ -42479,12 +42479,12 @@ var ToDoList = function (_a) {
     };
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_1__.default, null, toDos.map(function (_a) {
         var toDo = _a.toDo, date = _a.date, id = _a.id;
-        return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_2__.default, { key: id, divider: true },
+        return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_2__.default, { key: id, divider: true, "data-testid": "todo" },
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_3__.default, { primary: toDo, secondary: date }),
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_4__.default, null,
-                react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_5__.default, { onClick: function () { return handleEditClick(toDo, id); } },
+                react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_5__.default, { onClick: function () { return handleEditClick(toDo, id); }, "data-testid": "edit" },
                     react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_icons_Edit__WEBPACK_IMPORTED_MODULE_6__.default, null)),
-                react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_5__.default, { onClick: function () { return deleteTodo(id); } },
+                react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_5__.default, { onClick: function () { return deleteTodo(id); }, "data-testid": "delete" },
                     react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_icons_Delete__WEBPACK_IMPORTED_MODULE_7__.default, { color: "secondary" })))));
     })));
 };

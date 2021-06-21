@@ -18,10 +18,13 @@
       "json",
       "node"
     ],
-    "testEnvironment": "jsdom"
+    "testEnvironment": "jsdom",
+    "setupFilesAfterEnv": [
+      "@testing-library/jest-dom/extend-expect"
+    ]
   },
   "scripts": {
-    "test": "jest",
+    "test": "jest --coverage",
     "dev": "webpack serve --mode development --open --hot",
     "build": "webpack",
     "predeploy": "npm run build",

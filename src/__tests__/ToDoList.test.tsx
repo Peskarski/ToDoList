@@ -1,22 +1,60 @@
 import * as React from 'react';
-import { render, fireEvent, cleanup } from '@testing-library/react';
-import { Main } from '../components/Main';
+import { render, fireEvent, screen } from '@testing-library/react';
+import App from '../App';
+import '@testing-library/jest-dom/extend-expect';
 
-test('it creates a new todo correctly', () => {
-  const doc = render(<Main header="ToDo List" />);
+const TEST_TEXT_1 = 'Go to work';
+const TEST_TEXT_2 = 'Feed my dog';
+const TEST_TEXT_3 = 'Feed my cat';
 
-  const input = doc.getByTestId('input').firstChild as HTMLInputElement;
-  const addButton = doc.getByTestId('add');
-
-  fireEvent.change(input, { target: { value: 'Go to work' } });
-  expect(input.value).toBe('Go to work');
+const createToDo = (text: string): void => {
+  const input = screen.getByTestId('input').firstChild as HTMLInputElement;
+  const addButton = screen.getByTestId('add');
+  fireEvent.change(input, { target: { value: text } });
   fireEvent.click(addButton);
+};
 
-  const todos = doc.getAllByTestId('todo');
-  const todo = doc.getByTestId('todo');
-  const todoName = todo.firstChild.firstChild.firstChild;
+describe('App works correctly', () => {
+  afterEach(() => {
+    localStorage.removeItem('toDos');
+  });
 
-  expect(todoName.textContent).toBe('Go to work');
-  expect(todos.length).toBe(1);
-  expect(input.value).toBe('');
+  beforeEach(() => {
+    render(<App />);
+  });
+
+  test('it creates ToDO', () => {
+    createToDo(TEST_TEXT_1);
+
+    const todos = screen.getAllByTestId('todo');
+    const todoText = screen.getByTestId('todo-text').firstChild;
+
+    expect(todoText.textContent).toBe(TEST_TEXT_1);
+    expect(todos.length).toBe(1);
+    const input = screen.getByTestId('input').firstChild as HTMLInputElement;
+    expect(input.value).toBe('');
+  });
+
+  test('it deletes ToDo', () => {
+    createToDo(TEST_TEXT_1);
+    const todo = screen.getByTestId('todo');
+    const deleteButton = screen.getByTestId('delete');
+    fireEvent.click(deleteButton);
+    expect(todo).not.toBeInTheDocument();
+  });
+
+  test('it updates ToDo', () => {
+    createToDo(TEST_TEXT_2);
+    const editButton = screen.getByTestId('edit');
+    fireEvent.click(editButton);
+    createToDo(TEST_TEXT_3);
+    const todoText = screen.getByTestId('todo-text').firstChild;
+    expect(todoText.textContent).toBe(TEST_TEXT_3);
+  });
+
+  test('it saves ToDo to LocalStorage', () => {
+    createToDo(TEST_TEXT_1);
+    const toDoFromLocalStorage = JSON.parse(localStorage.getItem('toDos'))[0].toDo;
+    expect(toDoFromLocalStorage).toBe(TEST_TEXT_1);
+  });
 });
