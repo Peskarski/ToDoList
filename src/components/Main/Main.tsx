@@ -16,7 +16,7 @@ export type ToDo = {
 
 export const DEFAULT_INPUT_VALUE = '';
 
-const Main: React.FC<Props> = ({ header }) => {
+export const Main: React.FC<Props> = ({ header }) => {
   const [toDos, setToDos] = useState<ToDo[]>(getToDosFromLocalStorage() || []);
   const [editedToDo, setEditedToDo] = useState<string>(DEFAULT_INPUT_VALUE);
 
@@ -44,5 +44,3 @@ const Main: React.FC<Props> = ({ header }) => {
     </StyledContainer>
   );
 };
-
-export default Main;

@@ -9,7 +9,7 @@ interface Props {
   editedToDo: string;
 }
 
-const toDoInput: React.FC<Props> = ({ buttonText, addTodo, editedToDo }) => {
+export const ToDoInput: React.FC<Props> = ({ buttonText, addTodo, editedToDo }) => {
   const [toDo, setToDo] = useState<string>(editedToDo);
 
   useEffect(() => {
@@ -36,5 +36,3 @@ const toDoInput: React.FC<Props> = ({ buttonText, addTodo, editedToDo }) => {
     </div>
   );
 };
-
-export default toDoInput;

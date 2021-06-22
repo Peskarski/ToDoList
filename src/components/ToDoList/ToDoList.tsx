@@ -10,7 +10,7 @@ interface Props {
   editTodo: (id: string) => void;
 }
 
-const ToDoList: React.FC<Props> = ({ toDos, deleteTodo, editTodo }) => {
+export const ToDoList: React.FC<Props> = ({ toDos, deleteTodo, editTodo }) => {
   const handleEditClick = (toDo: string, id: string) => {
     editTodo(toDo);
     deleteTodo(id);
@@ -34,5 +34,3 @@ const ToDoList: React.FC<Props> = ({ toDos, deleteTodo, editTodo }) => {
     </List>
   );
 };
-
-export default ToDoList;
