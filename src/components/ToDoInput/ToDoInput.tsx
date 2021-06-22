@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { StyledInput, StyledButton } from './styles';
 import { getDate } from './utils';
-import { DEFAULT_INPUT_VALUE } from '../Main';
+import { DEFAULT_INPUT_VALUE, ToDo } from '../Main';
 
 interface Props {
   buttonText: string;
-  addTodo: ({}) => void;
+  addTodo: (ToDo: ToDo) => void;
   editedToDo: string;
 }
 

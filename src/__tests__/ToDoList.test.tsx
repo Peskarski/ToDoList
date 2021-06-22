@@ -14,7 +14,7 @@ const createToDo = (text: string): void => {
   fireEvent.click(addButton);
 };
 
-describe('App works correctly', () => {
+describe('To Do List', () => {
   afterEach(() => {
     localStorage.removeItem('toDos');
   });
@@ -23,7 +23,7 @@ describe('App works correctly', () => {
     render(<App />);
   });
 
-  test('it creates ToDO', () => {
+  test('should create ToDO', () => {
     createToDo(TEST_TEXT_1);
 
     const todos = screen.getAllByTestId('todo');
@@ -35,15 +35,16 @@ describe('App works correctly', () => {
     expect(input.value).toBe('');
   });
 
-  test('it deletes ToDo', () => {
+  test('should delete ToDo', () => {
     createToDo(TEST_TEXT_1);
-    const todo = screen.getByTestId('todo');
+
     const deleteButton = screen.getByTestId('delete');
     fireEvent.click(deleteButton);
+    const todo = screen.queryByTestId('todo');
     expect(todo).not.toBeInTheDocument();
   });
 
-  test('it updates ToDo', () => {
+  test('should update ToDo', () => {
     createToDo(TEST_TEXT_2);
     const editButton = screen.getByTestId('edit');
     fireEvent.click(editButton);
@@ -52,7 +53,7 @@ describe('App works correctly', () => {
     expect(todoText.textContent).toBe(TEST_TEXT_3);
   });
 
-  test('it saves ToDo to LocalStorage', () => {
+  test('should save ToDo to LocalStorage', () => {
     createToDo(TEST_TEXT_1);
     const toDoFromLocalStorage = JSON.parse(localStorage.getItem('toDos'))[0].toDo;
     expect(toDoFromLocalStorage).toBe(TEST_TEXT_1);
