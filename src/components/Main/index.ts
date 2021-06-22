@@ -1,1 +1,1 @@
-export { Main, ToDo, DEFAULT_INPUT_VALUE } from './Main';
+export { Main, ToDo } from './Main';
