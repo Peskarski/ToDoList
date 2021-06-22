@@ -19,13 +19,13 @@ const ToDoList: React.FC<Props> = ({ toDos, deleteTodo, editTodo }) => {
   return (
     <List>
       {toDos.map(({ toDo, date, id }) => (
-        <ListItem key={id} divider>
-          <ListItemText primary={toDo} secondary={date}></ListItemText>
+        <ListItem key={id} divider data-testid="todo">
+          <ListItemText primary={toDo} secondary={date} data-testid="todo-text"></ListItemText>
           <ListItemSecondaryAction>
-            <IconButton onClick={() => handleEditClick(toDo, id)}>
+            <IconButton onClick={() => handleEditClick(toDo, id)} data-testid="edit">
               <EditIcon />
             </IconButton>
-            <IconButton onClick={() => deleteTodo(id)}>
+            <IconButton onClick={() => deleteTodo(id)} data-testid="delete">
               <DeleteIcon color="secondary" />
             </IconButton>
           </ListItemSecondaryAction>
