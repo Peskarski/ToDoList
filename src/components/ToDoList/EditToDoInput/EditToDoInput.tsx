@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import { StyledInput, StyledButton } from './styles';
 
-type Props = {
+interface Props {
   editText: string;
   id: string;
   editTodo: (toDo: string, id: string) => void;
   clearEditedId: () => void;
-};
+}
 
 const EDIT_BUTTON_TEXT = 'Edit';
 const CANCEL_BUTTON_TEXT = 'Cancel';

@@ -18,5 +18,7 @@ module.exports = {
     quotes: ['error', 'single'],
     '@typescript-eslint/no-var-requires': 'off',
     'react/prop-types': 'off',
+    '@typescript-eslint/no-explicit-any': 'off',
+    '@typescript-eslint/explicit-module-boundary-types': 'off',
   },
 };
