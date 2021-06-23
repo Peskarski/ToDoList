@@ -24,13 +24,13 @@ export const ToDoList: React.FC<Props> = ({ toDos, deleteTodo, editTodo }) => {
     <List>
       {toDos.map(({ toDo, date, id }) => (
         <div key={id}>
-          <ListItem divider data-testid="todo">
-            <ListItemText primary={toDo} secondary={date} data-testid="todo-text"></ListItemText>
+          <ListItem divider>
+            <ListItemText primary={toDo} secondary={date} data-testid></ListItemText>
             <ListItemSecondaryAction>
-              <IconButton onClick={() => setEditedId(id)} data-testid="edit">
+              <IconButton onClick={() => setEditedId(id)} aria-label="edit">
                 <EditIcon />
               </IconButton>
-              <IconButton onClick={() => deleteTodo(id)} data-testid="delete">
+              <IconButton onClick={() => deleteTodo(id)} aria-label="delete">
                 <DeleteIcon color="secondary" />
               </IconButton>
             </ListItemSecondaryAction>

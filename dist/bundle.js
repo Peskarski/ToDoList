@@ -38928,8 +38928,8 @@ var ToDoInput = function (_a) {
         setToDo(DEFAULT_INPUT_VALUE);
     };
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null,
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(_styles__WEBPACK_IMPORTED_MODULE_1__.StyledInput, { disableUnderline: true, onChange: handleChange, value: toDo, "data-testid": "input" }),
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(_styles__WEBPACK_IMPORTED_MODULE_1__.StyledButton, { variant: "contained", color: "secondary", onClick: handleClick, "data-testid": "add" }, buttonText)));
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(_styles__WEBPACK_IMPORTED_MODULE_1__.StyledInput, { disableUnderline: true, onChange: handleChange, value: toDo }),
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(_styles__WEBPACK_IMPORTED_MODULE_1__.StyledButton, { variant: "contained", color: "secondary", onClick: handleClick }, buttonText)));
 };
 
 
@@ -42479,12 +42479,12 @@ var ToDoList = function (_a) {
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_2__.default, null, toDos.map(function (_a) {
         var toDo = _a.toDo, date = _a.date, id = _a.id;
         return (react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", { key: id },
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_3__.default, { divider: true, "data-testid": "todo" },
-                react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_4__.default, { primary: toDo, secondary: date, "data-testid": "todo-text" }),
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_3__.default, { divider: true },
+                react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_4__.default, { primary: toDo, secondary: date, "data-testid": true }),
                 react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_5__.default, null,
-                    react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_6__.default, { onClick: function () { return setEditedId(id); }, "data-testid": "edit" },
+                    react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_6__.default, { onClick: function () { return setEditedId(id); }, "aria-label": "edit" },
                         react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_icons_Edit__WEBPACK_IMPORTED_MODULE_7__.default, null)),
-                    react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_6__.default, { onClick: function () { return deleteTodo(id); }, "data-testid": "delete" },
+                    react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_6__.default, { onClick: function () { return deleteTodo(id); }, "aria-label": "delete" },
                         react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_icons_Delete__WEBPACK_IMPORTED_MODULE_8__.default, { color: "secondary" })))),
             id === editedId && (react__WEBPACK_IMPORTED_MODULE_0__.createElement(_EditToDoInput__WEBPACK_IMPORTED_MODULE_1__.EditToDoInput, { editText: toDo, editTodo: editTodo, id: id, clearEditedId: clearEditedId }))));
     })));
@@ -44452,24 +44452,10 @@ exports.default = _default;
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "sortToDos": () => (/* binding */ sortToDos),
-/* harmony export */   "setToDosToLocalStorage": () => (/* binding */ setToDosToLocalStorage),
-/* harmony export */   "getToDosFromLocalStorage": () => (/* binding */ getToDosFromLocalStorage)
+/* harmony export */   "sortToDos": () => (/* binding */ sortToDos)
 /* harmony export */ });
-var LOCAL_STORAGE_ITEM_NAME = 'toDos';
 var sortToDos = function (toDos) {
     return toDos.sort(function (prev, curr) { return Date.parse(curr.date) - Date.parse(prev.date); });
-};
-var setToDosToLocalStorage = function (toDos) {
-    localStorage.setItem(LOCAL_STORAGE_ITEM_NAME, JSON.stringify(toDos));
-};
-var getToDosFromLocalStorage = function () {
-    try {
-        return JSON.parse(localStorage.getItem(LOCAL_STORAGE_ITEM_NAME));
-    }
-    catch (error) {
-        throw new Error(error);
-    }
 };
 
 
@@ -44488,7 +44474,7 @@ var usePersistedState = function (key, defaultValue) {
     var _a = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(defaultValue), value = _a[0], setValue = _a[1];
     (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
         try {
-            setValue(JSON.parse(localStorage.getItem(key)));
+            setValue(JSON.parse(localStorage.getItem(key)) || []);
         }
         catch (error) {
             throw new Error(error);

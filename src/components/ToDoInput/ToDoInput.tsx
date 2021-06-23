@@ -26,8 +26,8 @@ export const ToDoInput: React.FC<Props> = ({ buttonText, addTodo }) => {
 
   return (
     <div>
-      <StyledInput disableUnderline onChange={handleChange} value={toDo} data-testid="input" />
-      <StyledButton variant="contained" color="secondary" onClick={handleClick} data-testid="add">
+      <StyledInput disableUnderline onChange={handleChange} value={toDo} />
+      <StyledButton variant="contained" color="secondary" onClick={handleClick}>
         {buttonText}
       </StyledButton>
     </div>

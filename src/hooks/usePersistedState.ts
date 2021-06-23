@@ -5,7 +5,7 @@ export const usePersistedState = (key: string, defaultValue: any): [any, React.D
 
   useEffect(() => {
     try {
-      setValue(JSON.parse(localStorage.getItem(key)));
+      setValue(JSON.parse(localStorage.getItem(key)) || []);
     } catch (error) {
       throw new Error(error);
     }

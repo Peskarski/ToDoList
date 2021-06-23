@@ -8,8 +8,8 @@ const TEST_TEXT_2 = 'Feed my dog';
 const TEST_TEXT_3 = 'Feed my cat';
 
 const createToDo = (text: string): void => {
-  const input = screen.getByTestId('input').firstChild as HTMLInputElement;
-  const addButton = screen.getByTestId('add');
+  const input = screen.getByRole('textbox');
+  const addButton = screen.getByRole('button', { name: 'Add TODO' });
   fireEvent.change(input, { target: { value: text } });
   fireEvent.click(addButton);
 };
@@ -23,37 +23,44 @@ describe('To Do List', () => {
     render(<App />);
   });
 
-  test('should create ToDO', () => {
+  it('should create ToDO', () => {
     createToDo(TEST_TEXT_1);
-
-    const todos = screen.getAllByTestId('todo');
-    const todoText = screen.getByTestId('todo-text').firstChild;
-
-    expect(todoText.textContent).toBe(TEST_TEXT_1);
+    const todos = screen.getAllByRole('listitem');
+    const todoText = screen.getByText(TEST_TEXT_1);
+    expect(todoText).toBeInTheDocument();
     expect(todos.length).toBe(1);
-    const input = screen.getByTestId('input').firstChild as HTMLInputElement;
+    const input = screen.getByRole('textbox') as HTMLInputElement;
     expect(input.value).toBe('');
   });
 
-  test('should delete ToDo', () => {
+  it('should delete ToDo', () => {
     createToDo(TEST_TEXT_1);
-
-    const deleteButton = screen.getByTestId('delete');
+    const deleteButton = screen.getByRole('button', {
+      name: /delete/i,
+    });
+    const todos = screen.getByRole('listitem');
     fireEvent.click(deleteButton);
-    const todo = screen.queryByTestId('todo');
-    expect(todo).not.toBeInTheDocument();
+    expect(todos).not.toBeInTheDocument();
   });
 
-  test('should update ToDo', () => {
+  it('should edit ToDo', () => {
     createToDo(TEST_TEXT_2);
-    const editButton = screen.getByTestId('edit');
+    const editButton = screen.getByRole('button', {
+      name: /edit/i,
+    });
     fireEvent.click(editButton);
-    createToDo(TEST_TEXT_3);
-    const todoText = screen.getByTestId('todo-text').firstChild;
-    expect(todoText.textContent).toBe(TEST_TEXT_3);
+    const editInput = screen.getByPlaceholderText(TEST_TEXT_2);
+    expect(editInput).toBeInTheDocument();
+    fireEvent.change(editInput, { target: { value: TEST_TEXT_3 } });
+    const confirmEditButton = screen.getByRole('button', { name: 'Edit' });
+    fireEvent.click(confirmEditButton);
+    const newTodoText = screen.getByText(TEST_TEXT_3);
+    expect(newTodoText).toBeInTheDocument();
+    const oldTodoText = screen.queryByText(TEST_TEXT_2);
+    expect(oldTodoText).not.toBeInTheDocument();
   });
 
-  test('should save ToDo to LocalStorage', () => {
+  it('should save ToDo to LocalStorage', () => {
     createToDo(TEST_TEXT_1);
     const toDoFromLocalStorage = JSON.parse(localStorage.getItem('toDos'))[0].toDo;
     expect(toDoFromLocalStorage).toBe(TEST_TEXT_1);
