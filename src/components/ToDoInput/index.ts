@@ -1,3 +1,1 @@
-import ToDoInput from './ToDoInput';
-
-export { ToDoInput };
+export { ToDoInput } from './ToDoInput';

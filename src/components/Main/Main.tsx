@@ -1,8 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { StyledContainer } from './styles';
 import { ToDoInput } from '../ToDoInput';
 import { ToDoList } from '../ToDoList';
-import { sortToDos, getToDosFromLocalStorage, setToDosToLocalStorage } from './utils';
+import { sortToDos } from './utils';
+import { getDate } from '../ToDoInput/utils';
+import { usePersistedState } from '../../hooks/usePersistedState';
 
 type Props = {
   header: string;
@@ -14,35 +16,36 @@ export type ToDo = {
   id: string;
 };
 
-export const DEFAULT_INPUT_VALUE = '';
+const KEY_FOR_TODOS = 'toDos';
 
-const Main: React.FC<Props> = ({ header }) => {
-  const [toDos, setToDos] = useState<ToDo[]>(getToDosFromLocalStorage() || []);
-  const [editedToDo, setEditedToDo] = useState<string>(DEFAULT_INPUT_VALUE);
-
-  useEffect(() => {
-    setToDosToLocalStorage(toDos);
-  }, [toDos]);
+export const Main: React.FC<Props> = ({ header }) => {
+  const [toDos, setToDos] = usePersistedState(KEY_FOR_TODOS, []);
 
   const addTodo = (toDo: ToDo) => {
-    setToDos((prevState) => [...prevState, toDo]);
+    setToDos((prevState: ToDo[]) => [...prevState, toDo]);
   };
 
   const deleteTodo = (id: string) => {
-    setToDos((prevState) => prevState.filter((item) => item.id !== id));
+    setToDos((prevState: ToDo[]) => prevState.filter((item) => item.id !== id));
   };
 
-  const editTodo = (toDo: string) => {
-    setEditedToDo(toDo);
+  const editTodo = (toDo: string, id: string) => {
+    const editedToDo: ToDo = {
+      toDo,
+      date: getDate(),
+      id,
+    };
+
+    const newToDos: ToDo[] = [...toDos.filter((item: ToDo) => item.id !== id), editedToDo];
+
+    setToDos(newToDos);
   };
 
   return (
     <StyledContainer>
       <h1>{header}</h1>
-      <ToDoInput buttonText="Add TODO" addTodo={addTodo} editedToDo={editedToDo} />
+      <ToDoInput buttonText="Add TODO" addTodo={addTodo} />
       <ToDoList toDos={sortToDos(toDos)} deleteTodo={deleteTodo} editTodo={editTodo} />
     </StyledContainer>
   );
 };
-
-export default Main;
